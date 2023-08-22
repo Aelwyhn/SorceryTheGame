@@ -1,31 +1,62 @@
 #include "Game.h"
 #include "SDL2/SDL.h"
+#include <iostream>
 
 Game::Game() {}
 
 Game::~Game() {}
 
 void Game::init(const char * title, int x, int y, int w, int h, bool isFullScreen) {
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_Window *sdlWindow = SDL_CreateWindow(
-        "Sorcery",
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        800, 600,
-        SDL_WINDOW_SHOWN
-    );
-    SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
+    int screenModeFlag = SDL_WINDOW_SHOWN;
+    if(isFullScreen) {
+        screenModeFlag = SDL_WINDOW_FULLSCREEN;
+    }
 
-    SDL_SetRenderDrawColor(sdlRenderer, 255, 50, 0, 100);
-    SDL_RenderClear(sdlRenderer);
-    SDL_RenderPresent(sdlRenderer);
-    
-    SDL_Delay(1500);
+    if(SDL_Init(SDL_INIT_EVERYTHING) == 0) {
+        window = SDL_CreateWindow(
+            title,
+            x, y,
+            w, h,
+            screenModeFlag
+        );
+        if(window) {
+            renderer = SDL_CreateRenderer(window, -1, 0);
+
+            if(renderer) {
+                std::cout << "Renderer is initialized\n";
+                SDL_SetRenderDrawColor(renderer, 255, 50, 0, 100);
+                // SDL_Delay(1500);
+            }
+        }
+        isGameRunning = true;
+    } else {
+        isGameRunning = false;
+    }
 }
 
-void Game::handleEvent() {}
+void Game::handleEvent() {
+    SDL_Event event;
+    SDL_PollEvent(&event);
+    switch (event.type)
+    {
+    case SDL_QUIT:
+        isGameRunning = false;
+        break;
+    
+    default:
+        break;
+    }
+}
 
 void Game::update() {}
 
-void Game::render() {}
-void Game::clean() {}
-bool Game::isRunning() { return true; }
+void Game::render() {
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
+}
+void Game::clean() {
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    SDL_Quit();
+    std::cout << "Quit, clean\n";
+}

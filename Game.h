@@ -11,10 +11,10 @@ public:
         void update();
         void render();
         void clean();
-        bool isRunning();
+        bool isRunning() { return isGameRunning; }
 
 private:
     bool isGameRunning;
     SDL_Window *window;
-    SDL_Renderer *renrerer;
+    SDL_Renderer *renderer;
 };

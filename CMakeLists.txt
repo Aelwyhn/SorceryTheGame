@@ -7,4 +7,4 @@ link_directories(${CMAKE_SOURCE_DIR}/src)
 
 add_executable(sorcery main.cpp Game.cpp)
 
-target_link_libraries(sorcery SDL2 SDL2main)
+target_link_libraries(sorcery SDL2 SDL2main SDL2_image)

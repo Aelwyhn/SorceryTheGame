@@ -1,10 +1,12 @@
 #include "Game.h"
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
 
 Game *game = nullptr;
 
 int main(int argc, char** argv) {
     game = new Game();
+    IMG_Load("assets/warrior.png");
 
     game->init(
         "Sorcery game",

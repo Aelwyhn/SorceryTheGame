@@ -1,6 +1,9 @@
 #include "Game.h"
 #include "SDL2/SDL.h"
 #include <iostream>
+#include "external/include/SDL_image.h"
+
+SDL_Texture *warriorTexture;
 
 Game::Game() {}
 
@@ -24,13 +27,14 @@ void Game::init(const char * title, int x, int y, int w, int h, bool isFullScree
 
             if(renderer) {
                 std::cout << "Renderer is initialized\n";
-                SDL_SetRenderDrawColor(renderer, 255, 50, 0, 100);
-                // SDL_Delay(1500);
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             }
         }
         isGameRunning = true;
-    } else {
-        isGameRunning = false;
+
+        SDL_Surface *surface = IMG_Load("assets/warrior.png");
+        warriorTexture = SDL_CreateTextureFromSurface(renderer, surface);
+        SDL_FreeSurface(surface);
     }
 }
 
@@ -52,6 +56,7 @@ void Game::update() {}
 
 void Game::render() {
     SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, warriorTexture, NULL, NULL);
     SDL_RenderPresent(renderer);
 }
 void Game::clean() {

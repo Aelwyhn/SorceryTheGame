@@ -57,7 +57,7 @@ void Game::handleEvent() {
 }
 
 void Game::update() {
-    counter += 0.1;
+    counter += 1;
     if(counter >= GameConstants::SCREEN_WIDTH) {
         counter = 0;
     }

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "SDL2/SDL.h"
+#include "Constants.h"
 
 Game *game = nullptr;
 
@@ -9,7 +10,7 @@ int main(int argc, char** argv) {
     game->init(
         "Sorcery game",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        800, 600,
+        GameConstants::SCREEN_WIDTH, GameConstants::SCREEN_HEIGHT,
         false
     );
 

@@ -2,8 +2,12 @@
 #include "SDL2/SDL.h"
 #include <iostream>
 #include "external/include/SDL_image.h"
+#include "Constants.h"
 
 SDL_Texture *warriorTexture;
+SDL_Rect sourceRect;
+SDL_Rect destinationRect;
+float counter;
 
 Game::Game() {}
 
@@ -52,11 +56,19 @@ void Game::handleEvent() {
     }
 }
 
-void Game::update() {}
+void Game::update() {
+    counter += 0.1;
+    if(counter >= GameConstants::SCREEN_WIDTH) {
+        counter = 0;
+    }
+    destinationRect.h = 64;
+    destinationRect.w = 64;
+    destinationRect.x = counter;
+}
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, warriorTexture, NULL, NULL);
+    SDL_RenderCopy(renderer, warriorTexture, NULL, &destinationRect);
     SDL_RenderPresent(renderer);
 }
 void Game::clean() {

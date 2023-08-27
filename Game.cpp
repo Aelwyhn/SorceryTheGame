@@ -4,11 +4,9 @@
 #include "external/include/SDL_image.h"
 #include "Constants.h"
 #include "TextureManager.h"
+#include "GameObject.h"
 
-SDL_Texture *warriorTexture;
-SDL_Rect sourceRect;
-SDL_Rect destinationRect;
-float counter;
+GameObject * warrior;
 
 Game::Game() {}
 
@@ -36,8 +34,7 @@ void Game::init(const char * title, int x, int y, int w, int h, bool isFullScree
             }
         }
         isGameRunning = true;
-
-        warriorTexture = TextureManager::createTexture(GameConstants::WARRIOR_FILE, renderer);
+        warrior = new GameObject(GameConstants::WARRIOR_FILE, renderer, 0, 0);
     }
 }
 
@@ -56,18 +53,12 @@ void Game::handleEvent() {
 }
 
 void Game::update() {
-    counter += 1;
-    if(counter >= GameConstants::SCREEN_WIDTH) {
-        counter = 0;
-    }
-    destinationRect.h = 64;
-    destinationRect.w = 64;
-    destinationRect.x = counter;
+    warrior->update();
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, warriorTexture, NULL, &destinationRect);
+    warrior->render();
     SDL_RenderPresent(renderer);
 }
 void Game::clean() {

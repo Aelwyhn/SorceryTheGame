@@ -3,6 +3,7 @@
 #include <iostream>
 #include "external/include/SDL_image.h"
 #include "Constants.h"
+#include "TextureManager.h"
 
 SDL_Texture *warriorTexture;
 SDL_Rect sourceRect;
@@ -36,9 +37,7 @@ void Game::init(const char * title, int x, int y, int w, int h, bool isFullScree
         }
         isGameRunning = true;
 
-        SDL_Surface *surface = IMG_Load("assets/warrior.png");
-        warriorTexture = SDL_CreateTextureFromSurface(renderer, surface);
-        SDL_FreeSurface(surface);
+        warriorTexture = TextureManager::createTexture(GameConstants::WARRIOR_FILE, renderer);
     }
 }
 

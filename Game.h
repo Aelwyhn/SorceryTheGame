@@ -13,8 +13,8 @@ public:
         void clean();
         bool isRunning() { return isGameRunning; }
 
+        static SDL_Renderer *renderer;
 private:
     bool isGameRunning;
     SDL_Window *window;
-    SDL_Renderer *renderer;
 };

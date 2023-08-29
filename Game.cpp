@@ -8,33 +8,34 @@
 
 GameObject * warrior;
 
-Game::Game() {}
+SDL_Renderer* Game::renderer = nullptr;
 
+Game::Game() {}
 Game::~Game() {}
 
 void Game::init(const char * title, int x, int y, int w, int h, bool isFullScreen) {
     int screenModeFlag = SDL_WINDOW_SHOWN;
-    if(isFullScreen) {
+    if (isFullScreen) {
         screenModeFlag = SDL_WINDOW_FULLSCREEN;
     }
 
-    if(SDL_Init(SDL_INIT_EVERYTHING) == 0) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         window = SDL_CreateWindow(
             title,
             x, y,
             w, h,
             screenModeFlag
         );
-        if(window) {
+        if (window) {
             renderer = SDL_CreateRenderer(window, -1, 0);
 
-            if(renderer) {
+            if (renderer) {
                 std::cout << "Renderer is initialized\n";
                 SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             }
         }
         isGameRunning = true;
-        warrior = new GameObject(GameConstants::WARRIOR_FILE, renderer, 0, 0);
+        warrior = new GameObject(GameConstants::WARRIOR_FILE, 0, 0);
     }
 }
 

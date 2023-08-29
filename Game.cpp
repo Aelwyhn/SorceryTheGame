@@ -5,8 +5,10 @@
 #include "Constants.h"
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "Map.h"
 
 GameObject * warrior;
+Map *map;
 
 SDL_Renderer* Game::renderer = nullptr;
 
@@ -35,6 +37,7 @@ void Game::init(const char * title, int x, int y, int w, int h, bool isFullScree
             }
         }
         isGameRunning = true;
+        map = new Map();
         warrior = new GameObject(GameConstants::WARRIOR_FILE, 0, 0);
     }
 }
@@ -59,6 +62,7 @@ void Game::update() {
 
 void Game::render() {
     SDL_RenderClear(renderer);
+    map->drawMap();
     warrior->render();
     SDL_RenderPresent(renderer);
 }

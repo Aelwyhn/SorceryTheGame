@@ -12,4 +12,7 @@ namespace GameConstants {
 
     // file names
     const char * const WARRIOR_FILE = "assets/warrior.png";
+    const char * const DIRT_FILE = "assets/dirt.png";
+    const char * const GRASS_FILE = "assets/grass.png";
+    const char * const WATER_FILE = "assets/water.png";
 }

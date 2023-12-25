@@ -23,13 +23,6 @@ Game::Game() {}
 Game::~Game() {}
 
 void Game::init(const char * title, int x, int y, int w, int h, bool isFullScreen) {
-    int z[10];
-    // for(int i = 0; i < 10; i++) 
-    // {
-        // z[i] = i * 10;
-    // }
-    constexpr int xx = &z[9] - &z[2];
-    std::cout << xx << std::endl;
     int screenModeFlag = SDL_WINDOW_SHOWN;
     if (isFullScreen) {
         screenModeFlag = SDL_WINDOW_FULLSCREEN;
@@ -55,7 +48,6 @@ void Game::init(const char * title, int x, int y, int w, int h, bool isFullScree
         warrior = new GameObject(GameConstants::WARRIOR_FILE, 0, 0);
 
         newPlayer.addComponent<PositionComponent>();
-        newPlayer.addComponent<PositionComponent>().setXY(500, 500);
     }
 }
 

@@ -1,8 +1,6 @@
 #include "Game.h"
 #include "SDL2/SDL.h"
 #include "Constants.h"
-#include <iostream>
-#include "EntityComponentSystem.h"
 
 Game *game = nullptr;
 

@@ -27,9 +27,6 @@ inline size_t getComponentTypeId() noexcept
 // max components an entity is able to hold
 constexpr size_t maxComponents = 32;
 
-// using ComponentBitSet = std::bitset<maxComponents>;
-// using ComponentArray = std::array<Component*, maxComponents>;
-
 class Component
 {
 public:

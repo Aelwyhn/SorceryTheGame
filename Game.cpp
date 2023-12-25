@@ -6,16 +6,30 @@
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Map.h"
+#include "EntityComponentSystem.h"
+#include "Components.h"
 
 GameObject * warrior;
 Map *map;
 
 SDL_Renderer* Game::renderer = nullptr;
 
+Manager manager;
+
+//Entity instance
+auto& newPlayer(manager.addEntity());
+
 Game::Game() {}
 Game::~Game() {}
 
 void Game::init(const char * title, int x, int y, int w, int h, bool isFullScreen) {
+    int z[10];
+    // for(int i = 0; i < 10; i++) 
+    // {
+        // z[i] = i * 10;
+    // }
+    constexpr int xx = &z[9] - &z[2];
+    std::cout << xx << std::endl;
     int screenModeFlag = SDL_WINDOW_SHOWN;
     if (isFullScreen) {
         screenModeFlag = SDL_WINDOW_FULLSCREEN;
@@ -39,6 +53,9 @@ void Game::init(const char * title, int x, int y, int w, int h, bool isFullScree
         isGameRunning = true;
         map = new Map();
         warrior = new GameObject(GameConstants::WARRIOR_FILE, 0, 0);
+
+        newPlayer.addComponent<PositionComponent>();
+        newPlayer.addComponent<PositionComponent>().setXY(500, 500);
     }
 }
 
@@ -58,6 +75,8 @@ void Game::handleEvent() {
 
 void Game::update() {
     warrior->update();
+    manager.update();
+    std::cout << newPlayer.getComponent<PositionComponent>().getX() << ", " << newPlayer.getComponent<PositionComponent>().getY() << std::endl;
 }
 
 void Game::render() {
@@ -66,6 +85,7 @@ void Game::render() {
     warrior->render();
     SDL_RenderPresent(renderer);
 }
+
 void Game::clean() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
